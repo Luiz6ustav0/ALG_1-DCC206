@@ -31,4 +31,4 @@ clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)* ${TEST_DIR}/*.out ${TEST_DIR}/*.o
 
 run:
-	@./bin/run.out
+	@./bin/tp01
