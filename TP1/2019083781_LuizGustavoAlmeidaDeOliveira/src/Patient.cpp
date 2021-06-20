@@ -23,7 +23,11 @@ std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> 
 
     // criando vetor apenas com as IDs e distancia para fazer a ordenacao
     for (auto &clinic : clinics) {
-        float distance = clinic.second.getPosition().first;
+        int clinicX = clinic.second.getPosition().first;
+        int clinicY = clinic.second.getPosition().second;
+        float distance = sqrt(
+                            pow(this->getPosition().first-clinicX,2) - pow(this->getPosition().second-clinicY,2)
+                        );
         sortedByDistVec.push_back({clinic.first, distance});
     }
 
