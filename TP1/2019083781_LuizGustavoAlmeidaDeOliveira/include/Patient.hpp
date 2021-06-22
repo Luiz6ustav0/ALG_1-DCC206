@@ -13,13 +13,13 @@ public:
     bool isMatched() const;
     bool proposedToAllClinics() const;
     std::pair<int, int> getPosition() const;
-    std::vector<int> rankById() const;
+    int getRankById(int id) const;
 
 private:
     int id, age, nextIndexToClinicNotProposed = 1; // ID das clinicas precisa ser inciado em 1 nessa implementacao
     bool matched = false, proposedToAll = false;
     std::pair<int, int> positionXY;
-    std::vector<int> preferenceListClinicsById;
+    std::vector<int> rankListIndexedById;
     std::vector<bool> proposedToClinic;
 
     /** 

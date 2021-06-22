@@ -7,7 +7,7 @@ Patient::Patient(int _id, int _age, int posX, int posY, std::unordered_map<int, 
     this->id = _id;
     this->age = _age;
     this->positionXY = {posX, posY};
-    this->preferenceListClinicsById = sortClinicsByDistance(allClinics);
+    this->rankListIndexedById = sortClinicsByDistance(allClinics);
     this->proposedToClinic = std::vector<bool>(allClinics.size(), false);
 }
 
@@ -16,7 +16,11 @@ int Patient::getAge() const { return this->age; };
 bool Patient::isMatched() const { return this->matched; }
 bool Patient::proposedToAllClinics() const { return this->proposedToAll; }
 std::pair<int, int> Patient::getPosition() const { return this->positionXY; };
-std::vector<int> Patient::rankById() const { return this->preferenceListClinicsById; };
+int Patient::getRankById(int id) const {
+    if (id <= rankListIndexedById.size())
+        return this->rankListIndexedById[id];
+    return -99;
+};
 
 std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &IdToClinicMap) {
     std::vector<std::pair<int, float>> sortedByDistVec;
@@ -36,8 +40,7 @@ std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> 
 
 float Patient::calculateDistanceToClinic(Clinic c) const {
     float distance = sqrt(
-                        pow(this->getPosition().first - c.getPosition().first, 2) 
-                        + pow(this->getPosition().second - c.getPosition().second, 2));
+        pow(this->getPosition().first - c.getPosition().first, 2) + pow(this->getPosition().second - c.getPosition().second, 2));
     return distance;
 }
 
