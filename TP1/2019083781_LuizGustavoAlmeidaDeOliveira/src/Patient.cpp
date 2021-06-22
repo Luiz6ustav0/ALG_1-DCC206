@@ -37,7 +37,7 @@ std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> 
 float Patient::calculateDistanceToClinic(Clinic c) const {
     float distance = sqrt(
                         pow(this->getPosition().first - c.getPosition().first, 2) 
-                        - pow(this->getPosition().second - c.getPosition().second, 2));
+                        + pow(this->getPosition().second - c.getPosition().second, 2));
     return distance;
 }
 
