@@ -28,7 +28,7 @@ private:
      */
     std::vector<int> sortClinicsByDistance(std::unordered_map<int, Clinic> &clinics);
 
-    bool comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j);
+    static bool comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j);
 
     std::vector<int> createRankVecFromSortedByDistVec(std::vector<std::pair<int,float>> sortedByDistVec);
 

@@ -27,7 +27,7 @@ std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> 
         sortedByDistVec.push_back({clinic.first, distance});
     }
 
-    std::sort(sortedByDistVec.begin(), sortedByDistVec.end(), comparatorTwoClinicsByDistanceId);
+    std::sort(sortedByDistVec.begin(), sortedByDistVec.end(), Patient::comparatorTwoClinicsByDistanceId);
 
     std::vector<int> rankVec = createRankVecFromSortedByDistVec(sortedByDistVec);
 
@@ -44,8 +44,8 @@ float Patient::calculateDistanceToClinic(Clinic c) const {
 bool Patient::comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j) {
     if (i.second < j.second || (i.second == j.second && i.first < j.first))
         return true;
-    if (i.second > j.second || (i.second == j.second && j.first < i.first))
-        return false;
+    // if (i.second > j.second || (i.second == j.second && j.first < i.first))
+    return false;
 }
 
 std::vector<int> Patient::createRankVecFromSortedByDistVec(std::vector<std::pair<int, float>> sortedVec) {
