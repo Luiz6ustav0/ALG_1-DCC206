@@ -18,32 +18,40 @@ bool Patient::proposedToAllClinics() const { return this->proposedToAll; }
 std::pair<int, int> Patient::getPosition() const { return this->positionXY; };
 std::vector<int> Patient::rankById() const { return this->preferenceListClinicsById; };
 
-std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &clinics) {
+std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &IdToClinicMap) {
     std::vector<std::pair<int, float>> sortedByDistVec;
 
     // criando vetor apenas com as IDs e distancia para fazer a ordenacao
-    for (auto &clinic : clinics) {
-        int clinicX = clinic.second.getPosition().first;
-        int clinicY = clinic.second.getPosition().second;
-        float distance = sqrt(
-                            pow(this->getPosition().first-clinicX,2) - pow(this->getPosition().second-clinicY,2)
-                        );
+    for (auto &clinic : IdToClinicMap) {
+        float distance = calculateDistanceToClinic(clinic.second);
         sortedByDistVec.push_back({clinic.first, distance});
     }
 
-    std::sort(sortedByDistVec.begin(), sortedByDistVec.end(), [](std::pair<int, float> i, std::pair<int, float> j) {
-        if (i.second < j.second)
-            return true;
-        else if (i.second == j.second && i.first < j.first) // dist de i e j eh igual porem ID de i eh menor
-            return true;
-        else
-            return false; // a distancia de j eh menor ou a distancia e igual e o id de j eh menor
-    });
+    std::sort(sortedByDistVec.begin(), sortedByDistVec.end(), comparatorTwoClinicsByDistanceId);
 
-    std::vector<int> rankVec(sortedByDistVec.size() + 1);
-    for (int i = 1; i < sortedByDistVec.size() + 1; ++i) {
-        rankVec[sortedByDistVec[i - 1].first] = i;
-    }
+    std::vector<int> rankVec = createRankVecFromSortedByDistVec(sortedByDistVec);
 
     return rankVec;
+}
+
+float Patient::calculateDistanceToClinic(Clinic c) const {
+    float distance = sqrt(
+                        pow(this->getPosition().first - c.getPosition().first, 2) 
+                        - pow(this->getPosition().second - c.getPosition().second, 2));
+    return distance;
+}
+
+bool Patient::comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j) {
+    if (i.second < j.second || (i.second == j.second && i.first < j.first))
+        return true;
+    if (i.second > j.second || (i.second == j.second && j.first < i.first))
+        return false;
+}
+
+std::vector<int> Patient::createRankVecFromSortedByDistVec(std::vector<std::pair<int, float>> sortedVec) {
+    std::vector<int> rankIndexedByIdVec(sortedVec.size() + 1);
+    for (int i = 1; i < sortedVec.size() + 1; ++i) {
+        rankIndexedByIdVec[sortedVec[i - 1].first] = i;
+    }
+    return rankIndexedByIdVec;
 }
