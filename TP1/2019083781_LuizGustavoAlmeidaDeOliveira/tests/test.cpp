@@ -77,9 +77,9 @@ TEST_CASE("Should order inserted patients by priority to allow constant lookup")
     Clinic<Patient> c(id, capacity, posX, posY);
 
     // when inserting should always sort by priority asc
+    c.insertPatient({idPatient3, age3, posXPatient, posYPatient, clinicsData});
     c.insertPatient({idPatient, age, posXPatient, posYPatient, clinicsData});
     c.insertPatient({idPatient2, age, posXPatient, posYPatient, clinicsData});
-    c.insertPatient({idPatient3, age3, posXPatient, posYPatient, clinicsData});
 
     // then
     CHECK_EQ(c.getRegisteredPatients()[0].getId(), idPatient); // lowest priority
