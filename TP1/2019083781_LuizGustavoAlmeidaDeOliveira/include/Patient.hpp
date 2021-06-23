@@ -24,7 +24,8 @@ private:
 
     /** 
         * Funcao usada para ordenar as clinicas com base na distancia
-        @returns vector<int> vec, onde vec[i] eh o rank da clinica com ID=i
+        @param std::unordered_map<int,Clinic> clinic id para objeto Clinic
+        @returns vector<int>, onde vec[i] eh o rank da clinica com ID = i
      */
     std::vector<int> sortClinicsByDistance(std::unordered_map<int, Clinic> &clinics);
 
