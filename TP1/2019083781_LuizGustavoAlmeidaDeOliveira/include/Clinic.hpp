@@ -27,7 +27,7 @@ private:
     std::vector<T> registeredPatients;
 };
 
-/*
+/* **************************************************************************************
     Implementation needs to be in the same file as the declaration when using templates
 */
 
