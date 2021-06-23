@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-Patient::Patient(int _id, int _age, int posX, int posY, std::unordered_map<int, Clinic> &allClinics) {
+Patient::Patient(int _id, int _age, int posX, int posY, std::unordered_map<int, Clinic<Patient>> &allClinics) {
     this->id = _id;
     this->age = _age;
     this->positionXY = {posX, posY};
@@ -19,10 +19,10 @@ std::pair<int, int> Patient::getPosition() const { return this->positionXY; };
 int Patient::getRankById(int id) const {
     if (id <= rankListIndexedById.size())
         return this->rankListIndexedById[id];
-    return -99;
+    return -99; // TODO: Throw exception instead of this dumb code
 };
 
-std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &IdToClinicMap) {
+std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic<Patient>> &IdToClinicMap) {
     std::vector<std::pair<int, float>> sortedByDistVec;
 
     // criando vetor apenas com as IDs e distancia para fazer a ordenacao
@@ -38,7 +38,7 @@ std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> 
     return rankVec;
 }
 
-float Patient::calculateDistanceToClinic(Clinic c) const {
+float Patient::calculateDistanceToClinic(Clinic<Patient> c) const {
     float distance = sqrt(
         pow(this->getPosition().first - c.getPosition().first, 2) + pow(this->getPosition().second - c.getPosition().second, 2));
     return distance;

@@ -6,7 +6,7 @@
 
 class Patient {
 public:
-    Patient(int _id, int _age, int _posX, int _posY, std::unordered_map<int, Clinic> &allClinics);
+    Patient(int _id, int _age, int _posX, int _posY, std::unordered_map<int, Clinic<Patient>> &allClinics);
 
     int getId() const;
     int getAge() const;
@@ -27,13 +27,13 @@ private:
         @param std::unordered_map<int,Clinic> clinic id para objeto Clinic
         @returns vector<int>, onde vec[i] eh o rank da clinica com ID = i
      */
-    std::vector<int> sortClinicsByDistance(std::unordered_map<int, Clinic> &clinics);
+    std::vector<int> sortClinicsByDistance(std::unordered_map<int, Clinic<Patient>> &clinics);
 
     static bool comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j);
 
     std::vector<int> createRankVecFromSortedByDistVec(std::vector<std::pair<int,float>> sortedByDistVec);
 
-    float calculateDistanceToClinic(Clinic c) const;
+    float calculateDistanceToClinic(Clinic<Patient> c) const;
 };
 
 #endif
