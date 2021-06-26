@@ -2,8 +2,11 @@
 #include "doctest.h"
 #include <Clinic.hpp>
 #include <Patient.hpp>
-// #include <UtilsService.hpp>
+#include <UtilsService.hpp>
 
+/* *******
+    Data
+*/
 std::unordered_map<int, Clinic> clinicsData = std::unordered_map<int, Clinic>(
     {{1, Clinic(1, 4, 5, 2)}, {2, Clinic(2, 4, 0, 1)}, 
     {3, Clinic(3, 4, 0, 5)}, {4, Clinic(4, 4, 5, 0)}});
@@ -93,30 +96,30 @@ TEST_CASE("Should order inserted patients by priority to allow constant lookup")
 TESTS REGARDING THE UTIL CLASS
 */
 
-// TEST_CASE("Should tell which patient has higher priority by age") {
-//     // given
-//     int idPatient = 13, age = 19, posXPatient = 13, posYPatient = 15;
-//     int idPatient2 = 23, age2 = 39;
-//     UtilService utilsService;
+TEST_CASE("Should tell which patient has higher priority by age") {
+    // given
+    int idPatient = 13, age = 19, posXPatient = 13, posYPatient = 15;
+    int idPatient2 = 23, age2 = 39;
+    UtilService utilsService;
 
-//     // when
-//     Patient p(idPatient, age, posXPatient, posYPatient, clinicsData);
-//     Patient v(idPatient2, age2, posXPatient, posYPatient, clinicsData);
+    // when
+    Patient p(idPatient, age, posXPatient, posYPatient, clinicsData);
+    Patient v(idPatient2, age2, posXPatient, posYPatient, clinicsData);
 
-//     // then
-//     CHECK_EQ(utilsService.doesTheFirstHaveHigherPriority(p, v), false);
-// }
+    // then
+    CHECK_EQ(utilsService.doesTheFirstHaveHigherPriority(p, v), false);
+}
 
-// TEST_CASE("Should tell which patient has higher priority by id if age is equal") {
-//     // given
-//     int idPatient = 13, age = 39, posXPatient = 13, posYPatient = 15;
-//     int idPatient2 = 23;
-//     UtilService utilsService;
+TEST_CASE("Should tell which patient has higher priority by id if age is equal") {
+    // given
+    int idPatient = 13, age = 39, posXPatient = 13, posYPatient = 15;
+    int idPatient2 = 23;
+    UtilService utilsService;
 
-//     // when
-//     Patient p(idPatient, age, posXPatient, posYPatient, clinicsData);
-//     Patient v(idPatient2, age, posXPatient, posYPatient, clinicsData);
+    // when
+    Patient p(idPatient, age, posXPatient, posYPatient, clinicsData);
+    Patient v(idPatient2, age, posXPatient, posYPatient, clinicsData);
 
-//     // then
-//     CHECK_EQ(utilsService.doesTheFirstHaveHigherPriority(p, v), true);
-// }
+    // then
+    CHECK_EQ(utilsService.doesTheFirstHaveHigherPriority(p, v), true);
+}
