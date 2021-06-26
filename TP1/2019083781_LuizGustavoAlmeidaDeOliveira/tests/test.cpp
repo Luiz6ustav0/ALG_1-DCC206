@@ -8,8 +8,8 @@
     Data
 */
 std::unordered_map<int, Clinic> clinicsData = std::unordered_map<int, Clinic>(
-    {{1, Clinic(1, 4, 5, 2)}, {2, Clinic(2, 4, 0, 1)}, 
-    {3, Clinic(3, 4, 0, 5)}, {4, Clinic(4, 4, 5, 0)}});
+    {{0, Clinic(0, 4, 5, 2)}, {1, Clinic(1, 4, 0, 1)}, 
+    {2, Clinic(2, 4, 0, 5)}, {3, Clinic(3, 4, 5, 0)}});
 
 
 /* *****************************
@@ -110,12 +110,11 @@ TEST_CASE("Patient Should order clinics by distance") {
 
     // then
     // expected rank by id is {2, 3, 4, 1}, considering distance and lower id
+    CHECK_EQ(p.getRankById(1), 0);
     CHECK_EQ(p.getRankById(2), 1);
     CHECK_EQ(p.getRankById(3), 2);
-    CHECK_EQ(p.getRankById(4), 3);
-    CHECK_EQ(p.getRankById(1), 4);
+    CHECK_EQ(p.getRankById(0), 3);
 }
-
 
 /* *****************************
     TESTS REGARDING THE CLINIC CLASS

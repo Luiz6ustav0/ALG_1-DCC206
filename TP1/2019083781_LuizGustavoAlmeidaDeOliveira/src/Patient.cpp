@@ -52,9 +52,9 @@ bool Patient::comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pai
 }
 
 std::vector<int> Patient::createRankVecFromSortedByDistVec(std::vector<std::pair<int, float>> sortedVec) {
-    std::vector<int> rankIndexedByIdVec(sortedVec.size() + 1);
-    for (int i = 1; i < sortedVec.size() + 1; ++i) {
-        rankIndexedByIdVec[sortedVec[i - 1].first] = i;
+    std::vector<int> rankIndexedByIdVec(sortedVec.size());
+    for (int i = 0; i < sortedVec.size(); ++i) {
+        rankIndexedByIdVec[sortedVec[i].first] = i;
     }
     return rankIndexedByIdVec;
 }
