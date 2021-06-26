@@ -17,7 +17,7 @@ bool Patient::isMatched() const { return this->matched; }
 bool Patient::proposedToAllClinics() const { return this->proposedToAll; }
 std::pair<int, int> Patient::getPosition() const { return this->positionXY; };
 int Patient::getRankById(int id) const {
-    if (id <= rankListIndexedById.size())
+    if (id < rankListIndexedById.size())
         return this->rankListIndexedById[id];
     return -99; // TODO: Throw exception instead of this dumb code
 };

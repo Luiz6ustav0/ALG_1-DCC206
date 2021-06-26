@@ -1,4 +1,6 @@
 #include <Clinic.hpp>
+#include <exception>
+#include <string>
 
 Clinic::Clinic(int _id, int _capacity, int posX, int posY) {
     this->id = _id;
@@ -41,4 +43,21 @@ void Clinic::sortRegisteredPatients() {
         }
         this->registeredPatients[pos] = patientToInsert;
     }
+}
+
+Patient Clinic::getPatientWithLowestPriority() const {
+    if (this->capacity > this->spotsLeft) {
+        return this->registeredPatients[0];
+    }
+    throw std::string("No patients registered when asking for lowest priority");
+}
+
+Patient Clinic::substituteForNewPatientAndReturnOld(Patient newPatient) {
+    if (this->spotsLeft == 0) {
+        Patient pastPatient = this->getPatientWithLowestPriority();
+        this->registeredPatients[0] = newPatient;
+        this->sortRegisteredPatients();
+        return pastPatient;
+    }
+    throw std::string("The Clinic isn't full! You should NOT REMOVE patients");
 }

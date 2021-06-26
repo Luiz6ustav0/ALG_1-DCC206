@@ -21,7 +21,9 @@ public:
         * Inserts Patient and sorts current registered Patients by priority
     */
     void insertPatient(Patient p);
-
+    Patient getPatientWithLowestPriority() const;
+    Patient substituteForNewPatientAndReturnOld(Patient newPatient);
+    
 private:
     int id, capacity, spotsLeft;
     std::pair<int, int> positionXY;

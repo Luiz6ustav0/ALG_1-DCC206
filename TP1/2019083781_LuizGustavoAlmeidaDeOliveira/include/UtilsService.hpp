@@ -14,5 +14,6 @@ public:
      @param Patient v
      @returns bool
      */
-    static bool doesTheFirstHaveHigherPriority(Patient p, Patient v);
+    static bool doesTheFirstHaveHigherPriority(const Patient p, const Patient v);
+    static bool clinicHasSomeoneWithLowerPriorityThan(const Patient p, const Clinic c);
 };

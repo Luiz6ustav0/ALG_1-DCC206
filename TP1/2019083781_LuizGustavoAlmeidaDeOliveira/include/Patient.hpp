@@ -16,7 +16,7 @@ public:
     int getRankById(int id) const;
 
 private:
-    int id, age; // ID das clinicas precisa ser inciado em 1 nessa implementacao
+    int id, age;
     bool matched = false, proposedToAll = false;
     std::pair<int, int> positionXY;
     std::vector<int> rankListIndexedById;
