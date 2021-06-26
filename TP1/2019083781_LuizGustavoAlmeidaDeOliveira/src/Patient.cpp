@@ -7,7 +7,7 @@ Patient::Patient(int _id, int _age, int posX, int posY, std::unordered_map<int, 
     this->id = _id;
     this->age = _age;
     this->positionXY = {posX, posY};
-    this->rankListIndexedById = sortClinicsByDistance(allClinics);
+    this->rankStack = sortClinicsByDistance(allClinics);
     this->proposedToClinic = std::vector<bool>(allClinics.size(), false);
 }
 
@@ -16,13 +16,17 @@ int Patient::getAge() const { return this->age; };
 bool Patient::isMatched() const { return this->matched; }
 bool Patient::proposedToAllClinics() const { return this->proposedToAll; }
 std::pair<int, int> Patient::getPosition() const { return this->positionXY; };
-int Patient::getRankById(int id) const {
-    if (id < rankListIndexedById.size())
-        return this->rankListIndexedById[id];
-    return -99; // TODO: Throw exception instead of this dumb code
+int Patient::getNextClinicId() {
+    if (!this->matched && !this->proposedToAll) {
+        int nextId = rankStack.top();
+        this->rankStack.pop();
+        if (this->rankStack.size() == 0) proposedToAll = true;
+        return nextId;
+    }
+    throw "Already matched. NO need for next ID";
 };
 
-std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &IdToClinicMap) {
+std::stack<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &IdToClinicMap) {
     std::vector<std::pair<int, float>> sortedByDistVec;
 
     // criando vetor apenas com as IDs e distancia para fazer a ordenacao
@@ -33,9 +37,9 @@ std::vector<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> 
 
     std::sort(sortedByDistVec.begin(), sortedByDistVec.end(), Patient::comparatorTwoClinicsByDistanceId);
 
-    std::vector<int> rankVec = createRankVecFromSortedByDistVec(sortedByDistVec);
+    std::stack<int> newRankStack = createRankStackFromSortedByDistVec(sortedByDistVec);
 
-    return rankVec;
+    return newRankStack;
 }
 
 float Patient::calculateDistanceToClinic(Clinic c) const {
@@ -46,15 +50,15 @@ float Patient::calculateDistanceToClinic(Clinic c) const {
 
 bool Patient::comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j) {
     if (i.second < j.second || (i.second == j.second && i.first < j.first))
-        return true;
+        return false;
     // if (i.second > j.second || (i.second == j.second && j.first < i.first))
-    return false;
+    return true;
 }
 
-std::vector<int> Patient::createRankVecFromSortedByDistVec(std::vector<std::pair<int, float>> sortedVec) {
-    std::vector<int> rankIndexedByIdVec(sortedVec.size());
+std::stack<int> Patient::createRankStackFromSortedByDistVec(std::vector<std::pair<int, float>> sortedVec) {
+    std::stack<int> rankS;
     for (int i = 0; i < sortedVec.size(); ++i) {
-        rankIndexedByIdVec[sortedVec[i].first] = i;
+        rankS.push(sortedVec[i].first); // pushing only the id since we can reference the clinics later through it
     }
-    return rankIndexedByIdVec;
+    return rankS;
 }

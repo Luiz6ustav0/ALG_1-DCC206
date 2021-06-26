@@ -110,11 +110,26 @@ TEST_CASE("Patient Should order clinics by distance") {
 
     // then
     // expected rank by id is {2, 3, 4, 1}, considering distance and lower id
-    CHECK_EQ(p.getRankById(1), 0);
-    CHECK_EQ(p.getRankById(2), 1);
-    CHECK_EQ(p.getRankById(3), 2);
-    CHECK_EQ(p.getRankById(0), 3);
+    CHECK_EQ(p.getNextClinicId(), 1);
+    CHECK_EQ(p.getNextClinicId(), 2);
+    CHECK_EQ(p.getNextClinicId(), 3);
+    CHECK_EQ(p.getNextClinicId(), 0);
 }
+
+TEST_CASE("Patient should know the id of the clinic he would propose next") {
+    // given
+    int id = 0, age = 12, posX = 0, posY = 0;
+    Patient p(id, age, posX, posY, clinicsData);
+
+    // when then
+    CHECK_EQ(false, p.proposedToAllClinics());
+    CHECK_EQ(1, p.getNextClinicId());
+    CHECK_EQ(2, p.getNextClinicId());
+    CHECK_EQ(3, p.getNextClinicId());
+    CHECK_EQ(0, p.getNextClinicId());
+    CHECK_EQ(true, p.proposedToAllClinics());
+}
+
 
 /* *****************************
     TESTS REGARDING THE CLINIC CLASS

@@ -1,6 +1,7 @@
 #ifndef PATIENT_H
 #define PATIENT_H
 #include <Clinic.hpp>
+#include <stack>
 #include <unordered_map>
 #include <vector>
 
@@ -13,13 +14,13 @@ public:
     bool isMatched() const;
     bool proposedToAllClinics() const;
     std::pair<int, int> getPosition() const;
-    int getRankById(int id) const;
+    int getNextClinicId();
 
 private:
     int id, age;
     bool matched = false, proposedToAll = false;
     std::pair<int, int> positionXY;
-    std::vector<int> rankListIndexedById;
+    std::stack<int> rankStack;
     std::vector<bool> proposedToClinic;
 
     /** 
@@ -27,11 +28,11 @@ private:
         @param std::unordered_map<int,Clinic> clinic id para objeto Clinic
         @returns vector<int>, onde vec[i] eh o rank da clinica com ID = i
      */
-    std::vector<int> sortClinicsByDistance(std::unordered_map<int, Clinic> &clinics);
+    std::stack<int> sortClinicsByDistance(std::unordered_map<int, Clinic> &clinics);
 
     static bool comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pair<int, float> j);
 
-    std::vector<int> createRankVecFromSortedByDistVec(std::vector<std::pair<int,float>> sortedByDistVec);
+    std::stack<int> createRankStackFromSortedByDistVec(std::vector<std::pair<int, float>> sortedByDistVec);
 
     float calculateDistanceToClinic(Clinic c) const;
 };
