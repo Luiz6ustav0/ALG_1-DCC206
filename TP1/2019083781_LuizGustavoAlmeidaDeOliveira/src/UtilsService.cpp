@@ -1,9 +1,12 @@
 #include <UtilsService.hpp>
+#include <iostream>
 #include <queue>
 
 bool UtilService::doesTheFirstHaveHigherPriority(const Patient &p, const Patient &v) {
-    if (p.getAge() > v.getAge()) return true;
-    if (p.getAge() == v.getAge() && p.getId() < v.getId()) return true;
+    if (p.getAge() > v.getAge())
+        return true;
+    if (p.getAge() == v.getAge() && p.getId() < v.getId())
+        return true;
     return false;
 }
 
@@ -13,8 +16,7 @@ bool UtilService::clinicHasSomeoneWithLowerPriorityThan(const Patient &p, const 
     return result;
 }
 
-void
-UtilService::galeShapleyMatching(std::queue<Patient> &patientQueue, std::unordered_map<int, Clinic> &clinicsRefMap) {
+void UtilService::galeShapleyMatching(std::queue<Patient> &patientQueue, std::unordered_map<int, Clinic> &clinicsRefMap) {
     while (!patientQueue.empty()) {
         Patient currentPatient = patientQueue.front();
         patientQueue.pop();
@@ -29,10 +31,21 @@ UtilService::galeShapleyMatching(std::queue<Patient> &patientQueue, std::unorder
                     Patient pRemovedFromClinic = currentClinic.substituteForNewPatientAndReturnOld(currentPatient);
                     patientQueue.push(pRemovedFromClinic);
                     break;
-                }
-                else continue;
+                } else
+                    continue;
             }
         }
     }
+}
 
+void UtilService::printExpectedOutput(std::unordered_map<int, Clinic> &clinicsRefMapsMap) {
+    for (int clinicId = 0; clinicId < clinicsRefMapsMap.size(); ++clinicId) {
+        Clinic currentClinic = clinicsRefMapsMap[clinicId];
+        std::cout << clinicId << std::endl;
+        int patientsLen = currentClinic.getRegisteredPatients().size() - 1;
+        for (int i = patientsLen; i >= 1; --i) {
+            std::cout << currentClinic.getRegisteredPatients()[i].getId() << " ";
+        } // Printing the last one separately just for formatting reasons(auto-correction)
+        std::cout << currentClinic.getRegisteredPatients()[0].getId() << std::endl;
+    }
 }

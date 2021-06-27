@@ -25,13 +25,5 @@ int main() {
 
     UtilService::galeShapleyMatching(patientsQueue, clinicsMap);
 
-    for (int clinicId = 0; clinicId < clinicsMap.size(); ++clinicId) {
-        Clinic currentClinic = clinicsMap[clinicId];
-        std::cout << clinicId << std::endl;
-        int patientsLen = currentClinic.getRegisteredPatients().size() - 1;
-        for (int i = patientsLen; i >= 1; --i) {
-            std::cout << currentClinic.getRegisteredPatients()[i].getId() << " ";
-        } // Printing the last one separately just for formatting reasons(auto-correction)
-        std::cout << currentClinic.getRegisteredPatients()[0].getId() << std::endl;
-    }
+    UtilService::printExpectedOutput(clinicsMap);
 }
