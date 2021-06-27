@@ -1,7 +1,6 @@
-#include <iostream>
 #include <UtilsService.hpp>
+#include <iostream>
 #include <queue>
-
 
 int main() {
 
@@ -32,9 +31,7 @@ int main() {
         int patientsLen = currentClinic.getRegisteredPatients().size() - 1;
         for (int i = patientsLen; i >= 1; --i) {
             std::cout << currentClinic.getRegisteredPatients()[i].getId() << " ";
-        }
+        } // Printing the last one separately just for formatting reasons(auto-correction)
         std::cout << currentClinic.getRegisteredPatients()[0].getId() << std::endl;
     }
-
 }
-

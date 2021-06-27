@@ -28,7 +28,7 @@ void Clinic::insertPatient(Patient p) {
 }
 
 void Clinic::sortRegisteredPatients() {
-    std::stable_sort(this->registeredPatients.begin(), this->registeredPatients.end(), [](Patient p, Patient v)
+    std::sort(this->registeredPatients.begin(), this->registeredPatients.end(), [](Patient p, Patient v)
     {
         if (p.getAge() < v.getAge() || (p.getAge() == v.getAge() && p.getId() > v.getId()))
             return true;
