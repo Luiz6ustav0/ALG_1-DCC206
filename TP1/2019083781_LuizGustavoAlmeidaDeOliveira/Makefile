@@ -1,4 +1,4 @@
-CC = clang++
+CC = g++
 CXXFLAGS = -std=c++14 -O3 -Wall
 
 # folders
