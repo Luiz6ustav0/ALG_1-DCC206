@@ -28,12 +28,6 @@ private:
     int id, capacity, spotsLeft;
     std::pair<int, int> positionXY;
     std::vector<Patient> registeredPatients;
-    /**
-     * Insertion sort on registered patients.
-     * Insertion sort was selected because since patients will be inserted one by one, 
-     * the array will be sorted and insertion sort gives best timing for sorted or
-     * quasi sorted arrays. 
-     */
     void sortRegisteredPatients();
 };
 
