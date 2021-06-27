@@ -31,4 +31,4 @@ clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)* ${TEST_DIR}/*.out ${TEST_DIR}/*.o
 
 run:
-	@./bin/tp01
+	@./bin/tp01 < /home/luiz/Desktop/UFMG/Matérias/202101/Algoritmos\ I/ALG_1-DCC206/TP1/2019083781_LuizGustavoAlmeidaDeOliveira/ct01-input.txt

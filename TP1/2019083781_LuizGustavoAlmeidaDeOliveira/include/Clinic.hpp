@@ -7,10 +7,10 @@ class Patient; // forward declaration
 
 class Clinic {
 public:
-    Clinic(int _id = -1, int _capacity = -1, int posX = -1, int posY = -1);
+    explicit Clinic(int _id = -1, int _capacity = -1, int posX = -1, int posY = -1);
     
-    int getId();
-    int getCapacity();
+    int getId() const;
+    int getCapacity() const;
     bool hasSpaceLeft();
     std::pair<int, int> getPosition();
     /**

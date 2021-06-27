@@ -1,5 +1,6 @@
 #include <Clinic.hpp>
 #include <Patient.hpp>
+#include <queue>
 
 
 /*
@@ -14,6 +15,7 @@ public:
      @param Patient v
      @returns bool
      */
-    static bool doesTheFirstHaveHigherPriority(const Patient p, const Patient v);
-    static bool clinicHasSomeoneWithLowerPriorityThan(const Patient p, const Clinic c);
+    static bool doesTheFirstHaveHigherPriority(const Patient& p, const Patient& v);
+    static bool clinicHasSomeoneWithLowerPriorityThan(const Patient& p, const Clinic& c);
+    static void galeShapleyMatching(std::queue<Patient>& patientQ, std::unordered_map<int, Clinic> &clinicsRefMap);
 };

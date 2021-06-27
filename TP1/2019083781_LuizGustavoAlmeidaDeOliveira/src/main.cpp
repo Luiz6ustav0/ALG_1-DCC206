@@ -1,27 +1,40 @@
-// #include <iostream>
+#include <iostream>
+#include <UtilsService.hpp>
+#include <queue>
 
 
-// typedef long long ll;
+int main() {
 
-// int main(){
-    
-//     int numberOfClinics = 0, numberOfPatients = 0;
+    int numberOfClinics = 0, numberOfPatients = 0;
+    int capacity = 0, x = 0, y = 0, age = 0;
 
-//     std::cin >> numberOfClinics;
-//     int id = 0, capacity, x, y;
-//     for (int i=0; i<numberOfClinics; ++i) {
-//         std::cin >> capacity >> x >> y;
-//         std::cout << id << " " << capacity << " " << x << " " << y << std::endl;
-//         id++;
-//     }
+    std::unordered_map<int, Clinic> clinicsMap;
+    std::queue<Patient> patientsQueue;
 
-//     std::cin >> numberOfPatients;
-//     int age = 0;
-//     id = 0, x = 0, y = 0;
-//     for (int i=0; i<numberOfPatients; ++i) {
-//         std::cin >> age >> x >> y;
-//         std::cout << id << " " << x << " " << y << std::endl;
-//         id++;
-//     }
-// }
+    std::cin >> numberOfClinics;
+    for (int i = 0; i < numberOfClinics; ++i) {
+        std::cin >> capacity >> x >> y;
+        clinicsMap[i] = Clinic(i, capacity, x, y);
+    }
+
+    std::cin >> numberOfPatients;
+    x = 0, y = 0;
+    for (int i = 0; i < numberOfPatients; ++i) {
+        std::cin >> age >> x >> y;
+        patientsQueue.push(Patient(i, age, x, y, clinicsMap));
+    }
+
+    UtilService::galeShapleyMatching(patientsQueue, clinicsMap);
+
+    for (int clinicId = 0; clinicId < clinicsMap.size(); ++clinicId) {
+        Clinic currentClinic = clinicsMap[clinicId];
+        std::cout << clinicId << std::endl;
+        int patientsLen = currentClinic.getRegisteredPatients().size() - 1;
+        for (int i = patientsLen; i >= 1; --i) {
+            std::cout << currentClinic.getRegisteredPatients()[i].getId() << " ";
+        }
+        std::cout << currentClinic.getRegisteredPatients()[0].getId() << std::endl;
+    }
+
+}
 

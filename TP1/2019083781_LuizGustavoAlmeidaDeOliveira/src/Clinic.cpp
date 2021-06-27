@@ -1,6 +1,6 @@
 #include <Clinic.hpp>
-#include <exception>
-#include <string>
+#include <iostream>
+#include <algorithm>
 
 Clinic::Clinic(int _id, int _capacity, int posX, int posY) {
     this->id = _id;
@@ -9,9 +9,9 @@ Clinic::Clinic(int _id, int _capacity, int posX, int posY) {
     this->positionXY = {posX, posY};
 }
 
-int Clinic::getId() { return this->id; }
+int Clinic::getId() const { return this->id; }
 
-int Clinic::getCapacity() { return this->capacity; }
+int Clinic::getCapacity() const { return this->capacity; }
 
 bool Clinic::hasSpaceLeft() { return this->spotsLeft > 0; }
 
@@ -28,28 +28,19 @@ void Clinic::insertPatient(Patient p) {
 }
 
 void Clinic::sortRegisteredPatients() {
-    int numOfRegisteredPatients = this->getRegisteredPatients().size();
-
-    for (int i = 1; i < numOfRegisteredPatients; ++i) {
-        Patient patientToInsert = this->registeredPatients[i];
-        int pos = i;
-
-        while (
-            ( pos > 0 && patientToInsert.getAge() < this->registeredPatients[pos - 1].getAge() ) ||
-            ( patientToInsert.getAge() == this->registeredPatients[pos - 1].getAge() &&
-              patientToInsert.getId() > this->registeredPatients[pos - 1].getId())) { 
-            this->registeredPatients[pos] = this->registeredPatients[pos - 1];
-            pos -= 1;
-        }
-        this->registeredPatients[pos] = patientToInsert;
-    }
+    std::stable_sort(this->registeredPatients.begin(), this->registeredPatients.end(), [](Patient p, Patient v)
+    {
+        if (p.getAge() < v.getAge() || (p.getAge() == v.getAge() && p.getId() > v.getId()))
+            return true;
+        return false;
+    });
 }
 
 Patient Clinic::getPatientWithLowestPriority() const {
     if (this->capacity > this->spotsLeft) {
         return this->registeredPatients[0];
     }
-    throw std::string("No patients registered when asking for lowest priority");
+    throw "No patients registered when asking for lowest priority";
 }
 
 Patient Clinic::substituteForNewPatientAndReturnOld(Patient newPatient) {
@@ -59,5 +50,5 @@ Patient Clinic::substituteForNewPatientAndReturnOld(Patient newPatient) {
         this->sortRegisteredPatients();
         return pastPatient;
     }
-    throw std::string("The Clinic isn't full! You should NOT REMOVE patients");
+    throw "The Clinic isn't full! You should NOT REMOVE patients";
 }

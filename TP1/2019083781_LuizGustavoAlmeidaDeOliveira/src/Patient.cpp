@@ -35,7 +35,7 @@ std::stack<int> Patient::sortClinicsByDistance(std::unordered_map<int, Clinic> &
         sortedByDistVec.push_back({clinic.first, distance});
     }
 
-    std::sort(sortedByDistVec.begin(), sortedByDistVec.end(), Patient::comparatorTwoClinicsByDistanceId);
+    std::stable_sort(sortedByDistVec.begin(), sortedByDistVec.end(), Patient::comparatorTwoClinicsByDistanceId);
 
     std::stack<int> newRankStack = createRankStackFromSortedByDistVec(sortedByDistVec);
 
