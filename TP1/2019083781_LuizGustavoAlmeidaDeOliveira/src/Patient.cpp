@@ -57,7 +57,8 @@ bool Patient::comparatorTwoClinicsByDistanceId(std::pair<int, float> i, std::pai
 
 std::stack<int> Patient::createRankStackFromSortedByDistVec(std::vector<std::pair<int, float>> sortedVec) {
     std::stack<int> rankS;
-    for (int i = 0; i < sortedVec.size(); ++i) {
+    int vecSize = sortedVec.size();
+    for (int i = 0; i < vecSize; ++i) {
         rankS.push(sortedVec[i].first); // pushing only the id since we can reference the clinics later through it
     }
     return rankS;

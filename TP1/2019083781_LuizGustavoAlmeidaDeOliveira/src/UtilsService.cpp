@@ -39,9 +39,10 @@ void UtilService::galeShapleyMatching(std::queue<Patient> &patientQueue, std::un
 }
 
 void UtilService::printExpectedOutput(std::unordered_map<int, Clinic> &clinicsRefMapsMap) {
-    for (int clinicId = 0; clinicId < clinicsRefMapsMap.size(); ++clinicId) {
-        Clinic currentClinic = clinicsRefMapsMap[clinicId];
+    int mapSize = clinicsRefMapsMap.size();
+    for (int clinicId = 0; clinicId < mapSize; ++clinicId) {
         std::cout << clinicId << std::endl;
+        Clinic currentClinic = clinicsRefMapsMap[clinicId];
         int patientsLen = currentClinic.getRegisteredPatients().size() - 1;
         for (int i = patientsLen; i >= 1; --i) {
             std::cout << currentClinic.getRegisteredPatients()[i].getId() << " ";
