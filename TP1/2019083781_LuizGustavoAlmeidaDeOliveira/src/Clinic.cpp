@@ -1,6 +1,6 @@
 #include <Clinic.hpp>
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 Clinic::Clinic(int _id, int _capacity, int posX, int posY) {
     this->id = _id;
@@ -28,8 +28,7 @@ void Clinic::insertPatient(Patient p) {
 }
 
 void Clinic::sortRegisteredPatients() {
-    std::sort(this->registeredPatients.begin(), this->registeredPatients.end(), [](Patient p, Patient v)
-    {
+    std::sort(this->registeredPatients.begin(), this->registeredPatients.end(), [](Patient p, Patient v) {
         if (p.getAge() < v.getAge() || (p.getAge() == v.getAge() && p.getId() > v.getId()))
             return true;
         return false;

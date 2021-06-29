@@ -16,11 +16,13 @@ int Patient::getAge() const { return this->age; };
 bool Patient::isMatched() const { return this->matched; }
 bool Patient::proposedToAllClinics() const { return this->proposedToAll; }
 std::pair<int, int> Patient::getPosition() const { return this->positionXY; };
+
 int Patient::getNextClinicId() {
     if (!this->matched && !this->proposedToAll) {
         int nextId = rankStack.top();
         this->rankStack.pop();
-        if (this->rankStack.size() == 0) proposedToAll = true;
+        if (this->rankStack.size() == 0)
+            proposedToAll = true;
         return nextId;
     }
     throw "Already matched. NO need for next ID";

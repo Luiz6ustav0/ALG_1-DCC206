@@ -8,7 +8,7 @@ class Patient; // forward declaration
 class Clinic {
 public:
     explicit Clinic(int _id = -1, int _capacity = -1, int posX = -1, int posY = -1);
-    
+
     int getId() const;
     int getCapacity() const;
     bool hasSpaceLeft();
@@ -23,7 +23,7 @@ public:
     void insertPatient(Patient p);
     Patient getPatientWithLowestPriority() const;
     Patient substituteForNewPatientAndReturnOld(Patient newPatient);
-    
+
 private:
     int id, capacity, spotsLeft;
     std::pair<int, int> positionXY;

@@ -2,7 +2,6 @@
 #include <Patient.hpp>
 #include <queue>
 
-
 /*
     This class helps avoiding circular dependency issues with the Clinic and Patient Class
 */
@@ -15,8 +14,8 @@ public:
      @param Patient v
      @returns bool
      */
-    static bool doesTheFirstHaveHigherPriority(const Patient& p, const Patient& v);
-    static bool clinicHasSomeoneWithLowerPriorityThan(const Patient& p, const Clinic& c);
-    static void galeShapleyMatching(std::queue<Patient>& patientQ, std::unordered_map<int, Clinic> &clinicsRefMap);
+    static bool doesTheFirstHaveHigherPriority(const Patient &p, const Patient &v);
+    static bool clinicHasSomeoneWithLowerPriorityThan(const Patient &p, const Clinic &c);
+    static void galeShapleyMatching(std::queue<Patient> &patientQ, std::unordered_map<int, Clinic> &clinicsRefMap);
     static void printExpectedOutput(std::unordered_map<int, Clinic> &clinicclinicsRefMapsMap);
 };
