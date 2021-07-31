@@ -1,108 +1,34 @@
 #include <iostream>
-#include <list>
-#include <stack>
-#include <vector>
-#define NIL -1
-using namespace std;
+#include <AirportsGraph.hpp>
 
-class Graph {
-    int V; // No. of vertices
+using namespace std;  
 
-    void SCCUtil(int &u, vector<int> &disc, vector<int> &low, stack<int> &st,
-                 vector<bool> &stackMember, vector<vector<int>> &components, int &k);
-
-public:
-    list<int> *adj;                                    // A dynamic array of adjacency lists
-    Graph(int V);                                      // Constructor
-    void addEdge(int v, int w);                        // function to add an edge to graph
-    void SCC(vector<vector<int>> &components, int &k); // prints strongly connected components
-};
-
-Graph::Graph(int V) {
-    this->V = V;
-    adj = new list<int>[V + 1];
-}
-
-void Graph::addEdge(int v, int w) {
-    adj[v].push_back(w);
-}
-
-void Graph::SCCUtil(int &u, vector<int> &disc, vector<int> &low, stack<int> &st,
-                    vector<bool> &stackMember, vector<vector<int>> &components, int &k) {
-    static int time = 0;
-
-    disc[u] = low[u] = ++time;
-    st.push(u);
-    stackMember[u] = true;
-
-    list<int>::iterator i;
-    for (i = adj[u].begin(); i != adj[u].end(); ++i) {
-        int v = *i; // v is current adjacent of 'u'
-
-        if (disc[v] == -1) {
-            SCCUtil(v, disc, low, st, stackMember, components, k);
-
-            low[u] = min(low[u], low[v]);
-        }
-
-        else if (stackMember[v] == true)
-            low[u] = min(low[u], disc[v]);
-    }
-
-    int w = 0; // To store stack extracted vertices
-    if (low[u] == disc[u]) {
-        while (st.top() != u) {
-            w = (int)st.top();
-            components[k].push_back(w);
-            stackMember[w] = false;
-            st.pop();
-        }
-        w = (int)st.top();
-        components[k].push_back(w);
-        k++;
-        stackMember[w] = false;
-        st.pop();
-    }
-}
-
-// The function to do DFS traversal. It uses SCCUtil()
-void Graph::SCC(vector<vector<int>> &components, int &k) {
-    vector<int> disc(V, NIL);
-    vector<int> low(V, NIL);
-    vector<bool> stackMember(V, false);
-    stack<int> st;
-    for (int i = 1; i <= V; i++)
-        if (disc[i] == NIL)
-            SCCUtil(i, disc, low, st, stackMember, components, k);
-}
-
-// Driver program to test above function
 int main() {
-    int n = 0, m = 0, k = 0, x, y;
+    int n = 0, m = 0, x = 0, y = 0;
     cin >> n >> m;
-    Graph g1(n + 1);
-    vector<int> inDegree(n + 1, 0), outDegree(n + 1, 0);
-    vector<vector<int>> components(n + 1, vector<int>());
+    AirportsGraph airportsGraph(n);
     while (m--) {
         cin >> x >> y;
-        g1.addEdge(x, y);
+        airportsGraph.addConnection(x, y);
     }
-    g1.SCC(components, k);
 
+    vector<vector<int>> components = airportsGraph.getSCC();
     // cout << "***************" << endl;
-    // for (int i = 0; i < components.size(); ++i) {
+    // for (int i = 0; i < (int)components.size(); ++i) {
     //     if (!components[i].empty()) {
-    //         for (int j = 0; j < components[i].size(); ++j) {
-    //             cout << components[i][j] << " ";
+    //         for (int j = 0; j < (int)components[i].size(); ++j) {
+    //             cout << components[i][j]+1 << " ";
     //         }
     //         cout << endl;
     //     }
     // }
+    
     cout << "RESULTADO" << endl;
+    vector<int> inDegree(n, 0), outDegree(n, 0);
     for (auto &component : components) {
         if (!component.empty()) {
             for (int &element : component) {
-                for (int adjElement : g1.adj[element]) {
+                for (int adjElement : airportsGraph.graphVertices[element]) {
                     bool isIn = false;
                     for (int inTest : component)
                         if (inTest == adjElement)
@@ -116,7 +42,7 @@ int main() {
         }
     }
 
-    int sinks = 0, sources = 0, count = 0;
+    int sinks = 0, sources = 0;
     for (auto &component : components) {
         if (!component.empty()) {
             int componentIn = 0, componentOut = 0;
@@ -129,7 +55,6 @@ int main() {
                 sources++;
             if (componentOut == 0)
                 sinks++;
-            count++;
         }
     }
 
