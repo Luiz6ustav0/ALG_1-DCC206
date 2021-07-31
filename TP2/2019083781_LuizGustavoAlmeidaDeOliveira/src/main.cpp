@@ -1,7 +1,7 @@
-#include <iostream>
 #include <AirportsGraph.hpp>
+#include <iostream>
 
-using namespace std;  
+using namespace std;
 
 int main() {
     int n = 0, m = 0, x = 0, y = 0;
@@ -22,7 +22,7 @@ int main() {
     //         cout << endl;
     //     }
     // }
-    
+
     cout << "RESULTADO" << endl;
     vector<int> inDegree(n, 0), outDegree(n, 0);
     for (auto &component : components) {

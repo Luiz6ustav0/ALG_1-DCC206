@@ -8,7 +8,7 @@ using namespace std;
 class AirportsGraph {
 
     int numOfNodes;
-    
+
     vector<vector<int>> reversedVertices;
     vector<vector<int>> scc;
     vector<char> visited;

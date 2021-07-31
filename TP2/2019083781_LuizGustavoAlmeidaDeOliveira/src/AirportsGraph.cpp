@@ -14,8 +14,8 @@ int AirportsGraph::getNumOfNodes() {
 }
 
 void AirportsGraph::addConnection(int source, int destination) {
-    this->graphVertices[source-1].push_back(destination-1);
-    this->reversedVertices[destination-1].push_back(source-1);
+    this->graphVertices[source - 1].push_back(destination - 1);
+    this->reversedVertices[destination - 1].push_back(source - 1);
 }
 
 vector<vector<int>> AirportsGraph::getSCC() {
@@ -25,7 +25,7 @@ vector<vector<int>> AirportsGraph::getSCC() {
             dfs(nodeIndx, this->graphVertices, ord);
 
     this->visited = vector<char>(this->getNumOfNodes(), 0);
-    for (int nodeIndx = this->getNumOfNodes()-1; nodeIndx >= 0; --nodeIndx)
+    for (int nodeIndx = this->getNumOfNodes() - 1; nodeIndx >= 0; --nodeIndx)
         if (!visited[ord[nodeIndx]]) {
             this->scc.push_back({});
             dfs(ord[nodeIndx], this->reversedVertices, this->scc.back());
