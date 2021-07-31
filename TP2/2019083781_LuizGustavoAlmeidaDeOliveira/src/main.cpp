@@ -6,11 +6,12 @@ using namespace std;
 int main() {
 
     int n = 0, m = 0, x = 0, y = 0;
-    
+
     cin >> n >> m;
 
     AirportsGraph airportsGraph(n);
-    while (cin >> x >> y) {
+    while (m--) {
+        cin >> x >> y;
         airportsGraph.addConnection(x, y);
     } 
 
