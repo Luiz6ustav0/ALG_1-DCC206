@@ -1,6 +1,7 @@
 #ifndef AIRPORTS_GRAPH_H
 #define AIRPORTS_GRAPH_H
 
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -10,7 +11,7 @@ class AirportsGraph {
     int numOfNodes;
 
     vector<vector<int>> reversedVertices;
-    vector<vector<int>> scc;
+    vector<unordered_map<int, int>> scc;
     vector<int> inDegreeNodesInSCC;
     vector<int> outDegreeNodesInSCC;
     vector<char> visited;
@@ -25,7 +26,7 @@ public:
 
     void addConnection(int sourceNode, int sinkNode);
 
-    vector<vector<int>> getSCC();
+    vector<unordered_map<int, int>> getSCC();
 
     void calculateInAndOutDegreeForSCCs();
 
@@ -34,6 +35,8 @@ public:
     int getMaxBetweenSinksAndSources();
 
     void dfs(int u, vector<vector<int>> &adj, vector<int> &out);
+
+    void dfsToBuildComponents(int node, vector<vector<int>> &adjNodes, unordered_map<int, int> &order);
 };
 
 #endif

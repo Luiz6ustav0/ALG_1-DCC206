@@ -27,7 +27,15 @@ void AirportsGraph::dfs(int node, vector<vector<int>> &adjNodes, vector<int> &or
     order.push_back(node);
 }
 
-vector<vector<int>> AirportsGraph::getSCC() {
+void AirportsGraph::dfsToBuildComponents(int node, vector<vector<int>> &adjNodes, unordered_map<int, int> &order) {
+    this->visited[node] = 1;
+    for (int vertex : adjNodes[node])
+        if (this->visited[vertex] == 0)
+            dfsToBuildComponents(vertex, adjNodes, order);
+    order.insert({node, 1});
+}
+
+vector<unordered_map<int, int>> AirportsGraph::getSCC() {
     vector<int> ord;
     for (int nodeIndx = 0; nodeIndx < this->getNumOfNodes(); ++nodeIndx)
         if (visited[nodeIndx] == 0)
@@ -37,7 +45,7 @@ vector<vector<int>> AirportsGraph::getSCC() {
     for (int nodeIndx = this->getNumOfNodes() - 1; nodeIndx >= 0; --nodeIndx)
         if (!visited[ord[nodeIndx]]) {
             this->scc.push_back({});
-            dfs(ord[nodeIndx], this->reversedVertices, this->scc.back());
+            dfsToBuildComponents(ord[nodeIndx], this->reversedVertices, this->scc.back());
         }
     return this->scc;
 }
@@ -47,15 +55,13 @@ void AirportsGraph::calculateInAndOutDegreeForSCCs() {
     this->outDegreeNodesInSCC = vector<int>(this->numOfNodes, 0);
 
     for (auto &component : this->scc) {
-        for (int &element : component) {
-            for (int &adjElement : this->graphVertices[element]) {
-                bool isIn = false;
-                for (int &inTest : component)
-                    if (inTest == adjElement)
-                        isIn = true;
-                if (!isIn) {
-                    this->inDegreeNodesInSCC[adjElement] += 1;
-                    this->outDegreeNodesInSCC[element] += 1;
+        for (auto &element : component) {
+            if (component[element.first] == 1) {
+                for (int &adjElement : this->graphVertices[element.first]) {
+                    if (component[adjElement] == 0) {
+                        this->inDegreeNodesInSCC[adjElement] += 1;
+                        this->outDegreeNodesInSCC[element.first] += 1;
+                    }
                 }
             }
         }
@@ -66,8 +72,10 @@ void AirportsGraph::calculateNumberOfSinksAndSourcesFromSCCs() {
     for (auto &component : this->scc) {
         int componentIn = 0, componentOut = 0;
         for (auto &element : component) {
-            componentIn += this->inDegreeNodesInSCC[element];
-            componentOut += this->outDegreeNodesInSCC[element];
+            if (element.second == 1) {
+                componentIn += this->inDegreeNodesInSCC[element.first];
+                componentOut += this->outDegreeNodesInSCC[element.first];
+            }
         }
         if (componentIn == 0)
             this->sources++;
