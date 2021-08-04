@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1200px;
+            height: 1200px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": 77, "label": 77, "shape": "dot", "size": 10}, {"id": 18, "label": 18, "shape": "dot", "size": 10}, {"id": 37, "label": 37, "shape": "dot", "size": 10}, {"id": 56, "label": 56, "shape": "dot", "size": 10}, {"id": 46, "label": 46, "shape": "dot", "size": 10}, {"id": 2, "label": 2, "shape": "dot", "size": 10}, {"id": 24, "label": 24, "shape": "dot", "size": 10}, {"id": 51, "label": 51, "shape": "dot", "size": 10}, {"id": 6, "label": 6, "shape": "dot", "size": 10}, {"id": 82, "label": 82, "shape": "dot", "size": 10}, {"id": 32, "label": 32, "shape": "dot", "size": 10}, {"id": 89, "label": 89, "shape": "dot", "size": 10}, {"id": 58, "label": 58, "shape": "dot", "size": 10}, {"id": 36, "label": 36, "shape": "dot", "size": 10}, {"id": 71, "label": 71, "shape": "dot", "size": 10}, {"id": 14, "label": 14, "shape": "dot", "size": 10}, {"id": 57, "label": 57, "shape": "dot", "size": 10}, {"id": 92, "label": 92, "shape": "dot", "size": 10}, {"id": 15, "label": 15, "shape": "dot", "size": 10}, {"id": 86, "label": 86, "shape": "dot", "size": 10}, {"id": 44, "label": 44, "shape": "dot", "size": 10}, {"id": 47, "label": 47, "shape": "dot", "size": 10}, {"id": 69, "label": 69, "shape": "dot", "size": 10}, {"id": 72, "label": 72, "shape": "dot", "size": 10}, {"id": 12, "label": 12, "shape": "dot", "size": 10}, {"id": 67, "label": 67, "shape": "dot", "size": 10}, {"id": 21, "label": 21, "shape": "dot", "size": 10}, {"id": 13, "label": 13, "shape": "dot", "size": 10}, {"id": 26, "label": 26, "shape": "dot", "size": 10}, {"id": 91, "label": 91, "shape": "dot", "size": 10}, {"id": 30, "label": 30, "shape": "dot", "size": 10}, {"id": 54, "label": 54, "shape": "dot", "size": 10}, {"id": 48, "label": 48, "shape": "dot", "size": 10}, {"id": 29, "label": 29, "shape": "dot", "size": 10}, {"id": 65, "label": 65, "shape": "dot", "size": 10}, {"id": 4, "label": 4, "shape": "dot", "size": 10}, {"id": 60, "label": 60, "shape": "dot", "size": 10}, {"id": 98, "label": 98, "shape": "dot", "size": 10}, {"id": 45, "label": 45, "shape": "dot", "size": 10}, {"id": 31, "label": 31, "shape": "dot", "size": 10}, {"id": 41, "label": 41, "shape": "dot", "size": 10}, {"id": 9, "label": 9, "shape": "dot", "size": 10}, {"id": 95, "label": 95, "shape": "dot", "size": 10}, {"id": 42, "label": 42, "shape": "dot", "size": 10}, {"id": 73, "label": 73, "shape": "dot", "size": 10}, {"id": 87, "label": 87, "shape": "dot", "size": 10}, {"id": 62, "label": 62, "shape": "dot", "size": 10}, {"id": 75, "label": 75, "shape": "dot", "size": 10}, {"id": 16, "label": 16, "shape": "dot", "size": 10}, {"id": 79, "label": 79, "shape": "dot", "size": 10}, {"id": 84, "label": 84, "shape": "dot", "size": 10}, {"id": 49, "label": 49, "shape": "dot", "size": 10}, {"id": 66, "label": 66, "shape": "dot", "size": 10}, {"id": 22, "label": 22, "shape": "dot", "size": 10}, {"id": 1, "label": 1, "shape": "dot", "size": 10}, {"id": 23, "label": 23, "shape": "dot", "size": 10}, {"id": 85, "label": 85, "shape": "dot", "size": 10}, {"id": 70, "label": 70, "shape": "dot", "size": 10}, {"id": 52, "label": 52, "shape": "dot", "size": 10}, {"id": 83, "label": 83, "shape": "dot", "size": 10}, {"id": 74, "label": 74, "shape": "dot", "size": 10}, {"id": 7, "label": 7, "shape": "dot", "size": 10}, {"id": 80, "label": 80, "shape": "dot", "size": 10}, {"id": 61, "label": 61, "shape": "dot", "size": 10}, {"id": 99, "label": 99, "shape": "dot", "size": 10}, {"id": 88, "label": 88, "shape": "dot", "size": 10}, {"id": 28, "label": 28, "shape": "dot", "size": 10}, {"id": 25, "label": 25, "shape": "dot", "size": 10}, {"id": 10, "label": 10, "shape": "dot", "size": 10}, {"id": 50, "label": 50, "shape": "dot", "size": 10}, {"id": 27, "label": 27, "shape": "dot", "size": 10}, {"id": 96, "label": 96, "shape": "dot", "size": 10}, {"id": 8, "label": 8, "shape": "dot", "size": 10}, {"id": 63, "label": 63, "shape": "dot", "size": 10}, {"id": 97, "label": 97, "shape": "dot", "size": 10}, {"id": 90, "label": 90, "shape": "dot", "size": 10}, {"id": 33, "label": 33, "shape": "dot", "size": 10}, {"id": 20, "label": 20, "shape": "dot", "size": 10}, {"id": 59, "label": 59, "shape": "dot", "size": 10}, {"id": 40, "label": 40, "shape": "dot", "size": 10}, {"id": 68, "label": 68, "shape": "dot", "size": 10}, {"id": 11, "label": 11, "shape": "dot", "size": 10}, {"id": 17, "label": 17, "shape": "dot", "size": 10}, {"id": 43, "label": 43, "shape": "dot", "size": 10}, {"id": 100, "label": 100, "shape": "dot", "size": 10}, {"id": 39, "label": 39, "shape": "dot", "size": 10}, {"id": 38, "label": 38, "shape": "dot", "size": 10}, {"id": 55, "label": 55, "shape": "dot", "size": 10}, {"id": 78, "label": 78, "shape": "dot", "size": 10}, {"id": 19, "label": 19, "shape": "dot", "size": 10}, {"id": 53, "label": 53, "shape": "dot", "size": 10}, {"id": 34, "label": 34, "shape": "dot", "size": 10}, {"id": 81, "label": 81, "shape": "dot", "size": 10}, {"id": 76, "label": 76, "shape": "dot", "size": 10}, {"id": 93, "label": 93, "shape": "dot", "size": 10}, {"id": 3, "label": 3, "shape": "dot", "size": 10}, {"id": 64, "label": 64, "shape": "dot", "size": 10}, {"id": 94, "label": 94, "shape": "dot", "size": 10}, {"id": 5, "label": 5, "shape": "dot", "size": 10}, {"id": 35, "label": 35, "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"arrows": "to", "color": "#9999ee", "from": 77, "to": 18, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 37, "to": 56, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 37, "to": 46, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 37, "to": 77, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 56, "to": 77, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 56, "to": 37, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 46, "to": 77, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 2, "to": 37, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 2, "to": 24, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 2, "to": 56, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 2, "to": 46, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 18, "to": 46, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 24, "to": 37, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 24, "to": 46, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 51, "to": 6, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 51, "to": 82, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 51, "to": 32, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 89, "to": 51, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 89, "to": 82, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 89, "to": 6, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 89, "to": 32, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 32, "to": 6, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 6, "to": 32, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 82, "to": 89, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 82, "to": 6, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 82, "to": 32, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 58, "to": 36, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 58, "to": 71, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 36, "to": 14, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 36, "to": 71, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 71, "to": 14, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 71, "to": 36, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 14, "to": 71, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 57, "to": 92, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 15, "to": 86, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 15, "to": 92, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 15, "to": 44, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 92, "to": 57, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 92, "to": 44, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 92, "to": 86, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 44, "to": 92, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 86, "to": 15, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 86, "to": 44, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 47, "to": 69, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 47, "to": 72, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 12, "to": 67, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 12, "to": 21, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 69, "to": 21, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 69, "to": 13, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 67, "to": 72, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 67, "to": 47, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 21, "to": 26, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 13, "to": 26, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 13, "to": 72, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 26, "to": 12, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 91, "to": 26, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 91, "to": 47, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 91, "to": 72, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 30, "to": 54, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 30, "to": 48, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 54, "to": 30, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 54, "to": 48, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 48, "to": 30, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 48, "to": 54, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 29, "to": 65, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 4, "to": 65, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 4, "to": 29, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 60, "to": 98, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 60, "to": 45, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 31, "to": 60, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 31, "to": 98, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 31, "to": 45, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 41, "to": 45, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 41, "to": 98, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 45, "to": 41, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 9, "to": 41, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 98, "to": 9, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 98, "to": 31, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 95, "to": 42, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 95, "to": 73, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 95, "to": 87, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 73, "to": 87, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 62, "to": 95, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 75, "to": 73, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 75, "to": 16, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 42, "to": 75, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 42, "to": 79, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 79, "to": 87, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 84, "to": 42, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 49, "to": 66, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 49, "to": 22, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 66, "to": 22, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 66, "to": 49, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 22, "to": 49, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 22, "to": 66, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 1, "to": 23, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 23, "to": 85, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 23, "to": 70, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 52, "to": 23, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 52, "to": 85, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 83, "to": 23, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 74, "to": 23, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 74, "to": 1, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 70, "to": 23, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 7, "to": 1, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 80, "to": 61, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 99, "to": 88, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 99, "to": 28, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 25, "to": 88, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 25, "to": 61, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 28, "to": 10, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 10, "to": 61, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 10, "to": 28, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 10, "to": 50, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 10, "to": 80, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 88, "to": 10, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 88, "to": 50, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 88, "to": 61, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 27, "to": 96, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 27, "to": 8, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 63, "to": 96, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 96, "to": 8, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 96, "to": 63, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 8, "to": 63, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 97, "to": 90, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 97, "to": 33, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 33, "to": 90, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 33, "to": 97, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 90, "to": 97, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 90, "to": 33, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 20, "to": 59, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 40, "to": 20, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 68, "to": 20, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 68, "to": 11, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 17, "to": 68, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 17, "to": 20, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 17, "to": 40, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 11, "to": 40, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 11, "to": 59, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 11, "to": 17, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 59, "to": 17, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 43, "to": 100, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 43, "to": 39, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 43, "to": 38, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 55, "to": 38, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 55, "to": 100, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 100, "to": 43, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 38, "to": 55, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 38, "to": 39, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 78, "to": 19, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 78, "to": 53, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 34, "to": 19, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 34, "to": 81, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 53, "to": 34, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 53, "to": 19, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 81, "to": 78, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 19, "to": 34, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 76, "to": 93, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 3, "to": 93, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 93, "to": 3, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 93, "to": 64, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 93, "to": 76, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 94, "to": 93, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 94, "to": 64, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 64, "to": 76, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 64, "to": 94, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 5, "to": 35, "weight": 1}, {"arrows": "to", "color": "#9999ee", "from": 35, "to": 5, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
