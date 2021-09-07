@@ -37,21 +37,21 @@ vector<int> PathwayMap::secondTask() {
     return nodesInTheSolution;
 }
 
-int PathwayMap::coberturaMinimaDeClinicasEmGrafoAciclico(int root, int memo) {
-    if (graphVertices[root].empty()) return memo;
-    else if(memoizacao[root][memo] != -1) return memoizacao[root][memo];
+int PathwayMap::coberturaMinimaDeClinicasEmGrafoAciclico(int root, int inTheSolution) {
+    if (graphVertices[root].empty()) return inTheSolution;
+    else if(memoizacao[root][inTheSolution] != -1) return memoizacao[root][inTheSolution];
 
     int soma = 0;
     for (int edgeIndex = 0; edgeIndex < (int) graphVertices[root].size(); ++edgeIndex) {
         int currentNode = graphVertices[root][edgeIndex];
         if (currentNode != parent[root]) {
             parent[currentNode] = root;
-            if (memo == 0) soma += coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1);
+            if (inTheSolution == 0) soma += coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1);
             else soma += min(coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1), coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 0));
         }
     }
-    memoizacao[root][memo] = soma + memo;
-    return memoizacao[root][memo];
+    memoizacao[root][inTheSolution] = soma + inTheSolution;
+    return memoizacao[root][inTheSolution];
 }
 
 int PathwayMap::min(int a, int b) {

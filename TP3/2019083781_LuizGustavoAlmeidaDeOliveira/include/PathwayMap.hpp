@@ -29,7 +29,7 @@ public:
 
    vector<int> secondTask();
 
-    int coberturaMinimaDeClinicasEmGrafoAciclico(int root, int memo);
+    int coberturaMinimaDeClinicasEmGrafoAciclico(int root, int inTheSolution);
 };
 
 #endif
