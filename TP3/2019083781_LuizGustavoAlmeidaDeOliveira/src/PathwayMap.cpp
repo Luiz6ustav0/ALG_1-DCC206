@@ -6,6 +6,7 @@ PathwayMap::PathwayMap(int numEdges) {
     this->graphVertices = vector<vector<int>>(numEdges, vector<int>());
     this->parent = vector<int>(numEdges);
     this->memoizacao = vector<vector<int>>(numEdges, vector<int>(2, -1));
+    this->notInTheSolution = vector<bool>(numEdges, true);
 }
 
 void PathwayMap::addEdge(int source, int destination) {
@@ -18,8 +19,22 @@ int PathwayMap::firstTask() {
                this->coberturaMinimaDeClinicasEmGrafoAciclico(0, 1));
 }
 
-void PathwayMap::secondTask() {
-
+vector<int> PathwayMap::secondTask() {
+    vector<int> nodesInTheSolution = vector<int>();
+    for (int nodeIndx = 0; nodeIndx < numOfNodes; ++nodeIndx) {
+        if (notInTheSolution[nodeIndx]) {
+            for (const auto &adjNode : graphVertices[nodeIndx]) {
+                if (notInTheSolution[adjNode]) {
+                    notInTheSolution[nodeIndx] = false;
+                    notInTheSolution[adjNode] = false;
+                    nodesInTheSolution.push_back(nodeIndx);
+                    nodesInTheSolution.push_back(adjNode);
+                    break;
+                }
+            }
+        }
+    }
+    return nodesInTheSolution;
 }
 
 int PathwayMap::coberturaMinimaDeClinicasEmGrafoAciclico(int root, int memo) {
