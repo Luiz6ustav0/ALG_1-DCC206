@@ -15,6 +15,8 @@ class PathwayMap {
 
     static inline int min(int a, int b);
 
+    vector<bool> notInTheSolution;
+
 public:
 
     explicit PathwayMap(int numEdges);
@@ -25,7 +27,7 @@ public:
 
     int firstTask();
 
-   void secondTask();
+   vector<int> secondTask();
 
     int coberturaMinimaDeClinicasEmGrafoAciclico(int root, int memo);
 };
