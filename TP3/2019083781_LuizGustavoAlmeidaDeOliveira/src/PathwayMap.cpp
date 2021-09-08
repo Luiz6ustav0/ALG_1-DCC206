@@ -16,7 +16,7 @@ void PathwayMap::addEdge(int source, int destination) {
 
 int PathwayMap::firstTask() {
     return PathwayMap::min(this->coberturaMinimaDeClinicasEmGrafoAciclico(0, 0),
-               this->coberturaMinimaDeClinicasEmGrafoAciclico(0, 1));
+                           this->coberturaMinimaDeClinicasEmGrafoAciclico(0, 1));
 }
 
 vector<int> PathwayMap::secondTask() {
@@ -37,21 +37,26 @@ vector<int> PathwayMap::secondTask() {
     return nodesInTheSolution;
 }
 
-int PathwayMap::coberturaMinimaDeClinicasEmGrafoAciclico(int root, int inTheSolution) {
-    if (graphVertices[root].empty()) return inTheSolution;
-    else if(memoizacao[root][inTheSolution] != -1) return memoizacao[root][inTheSolution];
+int PathwayMap::coberturaMinimaDeClinicasEmGrafoAciclico(int root, int calculatedValue) {
+    if (graphVertices[root].empty())
+        return calculatedValue;
+    else if (memoizacao[root][calculatedValue] != -1) // ja foi calculado
+        return memoizacao[root][calculatedValue];
 
     int soma = 0;
-    for (int edgeIndex = 0; edgeIndex < (int) graphVertices[root].size(); ++edgeIndex) {
+    for (int edgeIndex = 0; edgeIndex < (int)graphVertices[root].size(); ++edgeIndex) {
         int currentNode = graphVertices[root][edgeIndex];
         if (currentNode != parent[root]) {
             parent[currentNode] = root;
-            if (inTheSolution == 0) soma += coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1);
-            else soma += min(coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1), coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 0));
+            if (calculatedValue == 0) // nesse caso o no precisa ser inserido pois nenhum dos dois esta na solucao
+                soma += coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1);
+            else // caso o outro ja esteja, verificando se e melhor incluir o atual ou não
+                soma += min(coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 1),
+                            coberturaMinimaDeClinicasEmGrafoAciclico(currentNode, 0));
         }
     }
-    memoizacao[root][inTheSolution] = soma + inTheSolution;
-    return memoizacao[root][inTheSolution];
+    memoizacao[root][calculatedValue] = soma + calculatedValue;
+    return memoizacao[root][calculatedValue];
 }
 
 int PathwayMap::min(int a, int b) {
