@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
@@ -33,6 +34,7 @@ int main(int argc, char *argv[]) {
     } else if (tarefa == "tarefa2") {
         auto secondTaskResult = pathwaysGraph.secondTask();
         cout << secondTaskResult.size() << endl;
+        sort(secondTaskResult.begin(), secondTaskResult.end());
         for (const auto &node : secondTaskResult) cout << node << endl;
     }
 
