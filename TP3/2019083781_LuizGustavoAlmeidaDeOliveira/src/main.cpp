@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
         cout << pathwaysGraph.firstTask() << endl;
     } else if (tarefa == "tarefa2") {
         auto secondTaskResult = pathwaysGraph.secondTask();
-        for (const auto &node : secondTaskResult) cout << node << endl;
         cout << secondTaskResult.size() << endl;
+        for (const auto &node : secondTaskResult) cout << node << endl;
     }
 
     return 0;
