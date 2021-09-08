@@ -1,12 +1,12 @@
 #include <PathwayMap.hpp>
 #include <vector>
 
-PathwayMap::PathwayMap(int numEdges) {
-    this->numOfNodes = numEdges;
-    this->graphVertices = vector<vector<int>>(numEdges, vector<int>());
-    this->parent = vector<int>(numEdges);
-    this->memoizacao = vector<vector<int>>(numEdges, vector<int>(2, -1));
-    this->notInTheSolution = vector<bool>(numEdges, true);
+PathwayMap::PathwayMap(int numNodes) {
+    this->numOfNodes = numNodes;
+    this->graphVertices = vector<vector<int>>(numNodes, vector<int>());
+    this->parent = vector<int>(numNodes);
+    this->memoizacao = vector<vector<int>>(numNodes, vector<int>(2, -1));
+    this->notInTheSolution = vector<bool>(numNodes, true);
 }
 
 void PathwayMap::addEdge(int source, int destination) {
