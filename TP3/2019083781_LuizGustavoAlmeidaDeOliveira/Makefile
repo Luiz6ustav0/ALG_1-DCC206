@@ -10,7 +10,7 @@ SRC_FOLDER = ./src/
 # all sources, objs, and header files
 MAIN = main.cpp
 TEST = test.cpp
-TARGET = tp03
+TARGET = tp3
 TARGET_TEST = test.out
 SRC = $(wildcard $(SRC_FOLDER)*.cpp)
 OBJ = $(patsubst $(SRC_FOLDER)%.cpp, $(OBJ_FOLDER)%.o, $(SRC))
